@@ -18,12 +18,16 @@
 
   --accent: #5ab8a8;
   --accent-hover: #6ac4b8;
+  --link-accent: #5ab8a8;
+  --link-accent-hover: #6ac4b8;
   --accent-rgb: 90, 184, 168;
   --accent-4: rgba(90, 184, 168, 0.04);
   --accent-6: rgba(90, 184, 168, 0.06);
   --accent-12: rgba(90, 184, 168, 0.12);
   --accent-20: rgba(90, 184, 168, 0.20);
   --accent-25: rgba(90, 184, 168, 0.25);
+  --accent-glow: rgba(90, 184, 168, 0.18);
+  --pulse-ring: rgba(90, 184, 168, 0.25);
 
   --warn: #d4a520;
   --shopify: #96bf48;
@@ -48,9 +52,9 @@
 
 [data-theme="light"] {
   /* ── Light mode (Cloud) ── */
-  --bg-body: #f7f5ef;
-  --bg-terminal: rgba(247, 245, 239, 0.96);
-  --bg-surface: #f2f0ea;
+  --bg-body: #eae7df;
+  --bg-terminal: rgba(234, 231, 223, 0.96);
+  --bg-surface: #e0ddd5;
 
   --fg-primary: #4a4844;
   --fg-bright: #2e2b27;
@@ -58,14 +62,18 @@
   --fg-muted: #6e6c68;
   --fg-dim: #9a9894;
 
-  --accent: #206868;
-  --accent-hover: #2a8080;
-  --accent-rgb: 32, 104, 104;
-  --accent-4: rgba(32, 104, 104, 0.04);
-  --accent-6: rgba(32, 104, 104, 0.06);
-  --accent-12: rgba(32, 104, 104, 0.12);
-  --accent-20: rgba(32, 104, 104, 0.20);
-  --accent-25: rgba(32, 104, 104, 0.25);
+  --accent: #da9235;
+  --accent-hover: #e8a848;
+  --link-accent: #da9235;
+  --link-accent-hover: #e8a848;
+  --accent-rgb: 218, 146, 53;
+  --accent-4: rgba(218, 146, 53, 0.04);
+  --accent-6: rgba(218, 146, 53, 0.06);
+  --accent-12: rgba(218, 146, 53, 0.12);
+  --accent-20: rgba(218, 146, 53, 0.20);
+  --accent-25: rgba(218, 146, 53, 0.25);
+  --accent-glow: rgba(218, 146, 53, 0.22);
+  --pulse-ring: rgba(218, 146, 53, 0.40);
 
   --warn: #8a6000;
   --shopify: #5a8a30;
@@ -176,10 +184,11 @@ body::after {
   position: absolute;
   width: 12px;
   height: 12px;
-  border-color: var(--accent-25);
+  border-color: var(--accent);
   border-style: solid;
   pointer-events: none;
-  transition: border-color 0.4s ease;
+  opacity: 0.55;
+  transition: border-color 0.4s ease, opacity 0.4s ease;
 }
 
 .terminal::before {
@@ -196,8 +205,7 @@ body::after {
 
 .terminal-body {
   padding: 42px 48px 48px;
-  min-height: 630px;
-  max-height: 1020px;
+  height: 630px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -214,6 +222,7 @@ body::after {
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   gap: 4px;
   font-size: 15px;
   line-height: 1.7;
@@ -277,12 +286,6 @@ body::after {
   --name-size: 24px;
 }
 
-.profile--terminal {
-  align-items: flex-start;
-  gap: 2px;
-  padding: 8px 0 16px 0;
-}
-
 .profile--modern {
   align-items: center;
   text-align: center;
@@ -296,20 +299,20 @@ body::after {
   justify-content: center;
 }
 
-.profile--terminal .profile-avatar-wrap {
-  margin-bottom: 16px;
+/* Terminal profile lines (rendered as individual .output-line entries) */
+.output-line .profile-avatar-wrap {
+  margin-bottom: 0;
+  display: inline-block;
 }
 
-.profile--terminal .profile-name {
+.output-line .profile-name,
+.output-line .profile-role,
+.output-line .profile-links {
   margin: 0;
 }
 
-.profile--terminal .profile-role {
-  margin: 0 0 16px;
-}
-
 .profile-avatar-wrap {
-  display: block;
+  display: inline-block;
   position: relative;
   margin-bottom: 28px;
   overflow: visible;
@@ -318,13 +321,19 @@ body::after {
 .profile-avatar-wrap::before {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: -6px;
   border-radius: 50%;
-  border: 1px solid var(--accent-12);
+  border: 2px solid var(--pulse-ring);
+  box-shadow:
+    0 0 12px var(--accent-glow),
+    0 0 32px var(--accent-glow),
+    inset 0 0 12px var(--accent-glow);
   animation: pulse-ring 4s ease-in-out infinite;
   pointer-events: none;
   transition: border-radius 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              border-color 0.4s ease;
+              border-color 0.4s ease,
+              box-shadow 0.4s ease,
+              opacity 0.4s ease;
 }
 
 .profile-avatar-wrap:hover::before {
@@ -332,13 +341,27 @@ body::after {
 }
 
 @keyframes pulse-ring {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.08); opacity: 0.15; }
+  0%, 100% {
+    transform: scale(0.97);
+    opacity: 0.55;
+    box-shadow:
+      0 0 4px var(--accent-glow),
+      0 0 12px var(--accent-glow),
+      inset 0 0 4px var(--accent-glow);
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.2;
+    box-shadow:
+      0 0 8px var(--accent-glow),
+      0 0 20px var(--accent-glow),
+      inset 0 0 8px var(--accent-glow);
+  }
 }
 
 .profile-avatar {
-  width: var(--avatar-size);
-  height: var(--avatar-size);
+  width: var(--avatar-size, 165px);
+  height: var(--avatar-size, 165px);
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--border-avatar);
@@ -352,18 +375,19 @@ body::after {
 }
 
 .profile-avatar:hover {
-  width: var(--avatar-hover-size);
-  height: var(--avatar-hover-size);
+  width: var(--avatar-hover-size, 390px);
+  height: var(--avatar-hover-size, 390px);
   border-radius: 14px;
 }
 
 .profile-name {
-  font-size: var(--name-size);
+  font-size: var(--name-size, 24px);
   font-weight: 600;
   color: var(--fg-heading);
   letter-spacing: -0.02em;
   margin: 0 0 8px;
   font-family: 'IBM Plex Mono', monospace;
+  display: inline-block;
   transition: text-shadow 0.3s ease, color 0.3s ease, color 0.4s ease;
 }
 
@@ -378,6 +402,7 @@ body::after {
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.03em;
   margin: 0 0 28px;
+  display: inline-block;
   transition: color 0.4s ease;
 }
 
@@ -426,15 +451,15 @@ body::after {
 }
 
 .profile-link.accent {
-  color: var(--accent);
+  color: var(--link-accent);
 }
 
 .profile-link.accent:hover {
-  color: var(--accent-hover);
+  color: var(--link-accent-hover);
 }
 
 .profile-link.accent::after {
-  background: var(--accent);
+  background: var(--link-accent);
   transition: width 0.2s ease, background 0.4s ease;
 }
 
