@@ -1,0 +1,21 @@
+{
+  "name": "kalindudc.github.io",
+  "version": "1.0.0",
+  "description": "Completed with pure html/css and javascript",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalindudc/kalindudc.github.io.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kalindudc/kalindudc.github.io/issues"
+  },
+  "homepage": "https://github.com/kalindudc/kalindudc.github.io#readme",
+  "dependencies": {
+    "serve": "^14.2.0"
+  }
+}

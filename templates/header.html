@@ -1,0 +1,31 @@
+<a href="#"><img class="avatar shadow" src="/media/avatar.jpg" alt="Kalindu De Costa, profile picture."></a>
+<div class="links">
+    <a href="/media/kalindu_de_costa_resume.pdf" target="_blank" alt="Resume">
+        <i class="fas fa-file-alt"></i>
+        <span class="font-small3">RESUME</span>
+    </a>
+    <a href="https://kdecosta.com/homelab/" alt="homelab" target="_blank">
+      <i class="fas fa-server"></i>
+      <span class="font-small3">HOMELAB</span>
+    </a>
+    <a href="http://github.com/kalindudc" target="_blank"><i class="fab fa-github"></i><span class="font-small3">GITHUB</span></a>
+    <a href="https://www.linkedin.com/in/kdecosta/" target="_blank"><i class="fab fa-linkedin-in"></i><span class="font-small3">LINKEDIN</span></a>
+    <!-- <a href="https://twitter.com/KalinduDC" target="_blank"><i class="fab fa-twitter"></i><span class="font-small3">@KalinduDC</span></a>
+    <a href="https://www.instagram.com/kalindudc/" target="_blank"><i class="fab fa-instagram"></i><span class="font-small3">@kalindudc</span></a> -->
+    <a href="mailto:kalindu&commat;kdecosta&period;com" target="_blank"><i class="fas fa-envelope"></i><span class="font-small3">kalindu&commat;kdecosta&period;com</span></a>
+</div>
+<a href="/"><img class="logo" src="/media/logo.png" alt="Kalindu De Costa, name banner."></a>
+<h1 class="tagline">SOFTWARE, INFRASTRUCTURE &amp; WEB ENGINEER</h1>
+<script>
+  var avatar = document.querySelector('.avatar');
+
+  document.addEventListener('click', function(e){
+    if (!e.target.classList.contains("avatar")) {
+      avatar.classList.remove("avatar-extended");
+    }
+  });
+
+  avatar.addEventListener('click', function(e){
+    avatar.classList.toggle("avatar-extended");
+  });
+</script>
