@@ -303,10 +303,14 @@ body::after {
   margin: 0;
 }
 
+.profile-name {
+  padding-top: 10px;
+}
+
 .profile-avatar-wrap {
   display: inline-block;
   position: relative;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
   overflow: visible;
 }
 

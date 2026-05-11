@@ -58,5 +58,6 @@ export function getTerminalProfileEntries() {
       instant: true,
     },
     { html: `<div class="profile-links">${linksHtml}</div>`, instant: true },
+    { html: `<br />`, instant: true },
   ];
 }
