@@ -77,6 +77,7 @@ const ctx = {
   clearOutput,
   showModernView,
   toggleTheme,
+  setSavedView,
 };
 const COMMANDS = createCommands(ctx);
 
@@ -155,10 +156,25 @@ function bootSequence() {
 
   setPromptDate();
 
+  function showHelpHint() {
+    const hintLines = [{ text: "type 'help' for usage", dim: true }];
+    if (prefersReducedMotion) {
+      printInstant(hintLines);
+      const lines = document.querySelectorAll(".output-line");
+      if (lines.length > 0) hintEl = lines[lines.length - 1];
+      return;
+    }
+    typeLines(hintLines, () => {
+      const lines = document.querySelectorAll(".output-line");
+      if (lines.length > 0) hintEl = lines[lines.length - 1];
+    });
+  }
+
   if (prefersReducedMotion) {
     printInstant(lines);
     printInstant(getTerminalProfileEntries());
     updateInputDisplay(currentInput, cursorPos);
+    showHelpHint();
     return;
   }
 
@@ -166,6 +182,7 @@ function bootSequence() {
     setTimeout(() => {
       typeLines(getTerminalProfileEntries(), () => {
         updateInputDisplay(currentInput, cursorPos);
+        showHelpHint();
       });
     }, randInt(100, 200));
   });
@@ -181,6 +198,12 @@ document.addEventListener("keydown", (e) => {
       showTerminalView();
       return;
     }
+  }
+
+  // Ignore all other keys when terminal is hidden (modern view active)
+  const terminalWrap = document.getElementById("terminal-wrap");
+  if (terminalWrap && terminalWrap.style.display === "none") {
+    return;
   }
 
   if (e.key === "Enter") {

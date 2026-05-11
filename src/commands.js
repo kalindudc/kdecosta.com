@@ -77,6 +77,7 @@ export function createCommands(ctx) {
       desc: "switch to modern profile view",
       run: () => {
         ctx.showModernView();
+        if (ctx.setSavedView) ctx.setSavedView("modern");
         return [];
       },
     },

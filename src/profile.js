@@ -47,17 +47,7 @@ export function getTerminalProfileEntries() {
     })
     .join('<span class="profile-sep">·</span>');
 
-  return [
-    {
-      html: `<div class="profile-avatar-wrap"><img src="${avatar}" alt="${name}" class="profile-avatar" /></div>`,
-      instant: true,
-    },
-    { html: `<span class="profile-name">${name}</span>`, instant: true },
-    {
-      html: `<span class="profile-role">${role} @ <a href="${company.url}" target="_blank" rel="noopener noreferrer" class="shopify-link">${company.name}</a></span>`,
-      instant: true,
-    },
-    { html: `<div class="profile-links">${linksHtml}</div>`, instant: true },
-    { html: `<br />`, instant: true },
-  ];
+  const html = `<div class="profile profile--terminal profile--bar"><div class="profile-avatar-wrap"><img src="${avatar}" alt="${name}" class="profile-avatar" /></div><span class="profile-name">${name}</span><span class="profile-role">${role} @ <a href="${company.url}" target="_blank" rel="noopener noreferrer" class="shopify-link">${company.name}</a></span><div class="profile-links">${linksHtml}</div></div>`;
+
+  return [{ html, instant: true }];
 }

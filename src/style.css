@@ -303,8 +303,43 @@ body::after {
   margin: 0;
 }
 
-.profile-name {
-  padding-top: 10px;
+/* ── Terminal Profile Card ── */
+.profile--terminal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 20px;
+}
+
+/* Restore margins inside the wrapped profile */
+.profile--terminal .profile-avatar-wrap {
+  margin-bottom: 8px;
+}
+
+.profile--terminal .profile-name {
+  margin: 0 0 4px;
+}
+
+.profile--terminal .profile-role {
+  margin: 0;
+}
+
+/* ── Left Accent Bar ── */
+.profile--terminal.profile--bar {
+  position: relative;
+  padding: 15px 20px 15px 28px;
+  margin: 10px 0 20px 0;
+}
+
+.profile--terminal.profile--bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  background: var(--accent-25);
+  border-radius: 2px;
 }
 
 .profile-avatar-wrap {
