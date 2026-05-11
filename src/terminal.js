@@ -158,7 +158,7 @@ export function updateInputDisplay(text, pos) {
     const charSpan = document.createElement("span");
     charSpan.className = "char";
     if (i === pos) charSpan.classList.add("cursor");
-    charSpan.textContent = text[i];
+    charSpan.textContent = text[i] === " " ? "\u00A0" : text[i];
     inputTextEl.appendChild(charSpan);
   }
 
