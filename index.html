@@ -14,6 +14,13 @@
   <body>
     <div class="vignette"></div>
 
+    <!-- View toggle -->
+    <button class="view-toggle" id="view-toggle" aria-label="Toggle view">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h10a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h14a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1z"/>
+      </svg>
+    </button>
+
     <!-- Terminal view -->
     <div class="terminal-wrap" id="terminal-wrap">
       <div class="terminal">
@@ -30,6 +37,7 @@
 
     <!-- Modern profile view -->
     <div class="modern-view" id="modern-view">
+      <div class="view-hint">/ to go back to terminal</div>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-13a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V5a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM5.64 6.05a1 1 0 0 1 1.41 0 1 1 0 0 1 0 1.41l-1.41 1.42a1 1 0 0 1-1.42-1.42l1.42-1.41zm12.72 0 1.42 1.41a1 1 0 0 1-1.42 1.42l-1.41-1.42a1 1 0 0 1 1.41-1.41zM4 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm15 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1z"/>

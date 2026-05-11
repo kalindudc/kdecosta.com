@@ -10,13 +10,15 @@ export function randInt(min, max) {
   return Math.floor(rand(min, max + 1));
 }
 
-export function charDelay() {
+export function charDelay(speed = 1) {
   const r = Math.random();
-  if (r < 0.02) return randInt(20, 35);    // rare micro-pause
-  if (r < 0.10) return randInt(2, 6);      // occasional burst
-  return randInt(5, 10);                    // snappy normal speed
+  let d;
+  if (r < 0.02) d = randInt(20, 35);
+  else if (r < 0.10) d = randInt(2, 6);
+  else d = randInt(5, 10);
+  return Math.max(0, Math.floor(d * speed));
 }
 
-export function lineDelay() {
-  return randInt(4, 12);
+export function lineDelay(speed = 1) {
+  return Math.max(0, Math.floor(randInt(4, 12) * speed));
 }

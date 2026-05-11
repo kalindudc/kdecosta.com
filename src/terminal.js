@@ -10,7 +10,7 @@ let isTyping = false;
 export const getIsTyping = () => isTyping;
 export const setIsTyping = (v) => { isTyping = v; };
 
-export function typeTextInto(element, text, onDone) {
+export function typeTextInto(element, text, onDone, speed = 1) {
   let i = 0;
   element.textContent = "";
   function next() {
@@ -21,7 +21,7 @@ export function typeTextInto(element, text, onDone) {
     element.textContent += text[i];
     i++;
     scrollToBottom();
-    setTimeout(next, charDelay());
+    setTimeout(next, charDelay(speed));
   }
   next();
 }
@@ -39,18 +39,28 @@ export function typeLine(line, onDone) {
   div.appendChild(content);
   outputEl.appendChild(div);
 
+  const speed = line.speed || 1;
+
+  // Blank line separator — render as visible empty line
+  if (!line.text && !line.html) {
+    content.innerHTML = "<br/>";
+    scrollToBottom();
+    if (onDone) onDone();
+    return;
+  }
+
   if (prefersReducedMotion || line.instant || line.skipType) {
     if (line.html) {
       content.innerHTML = line.html;
     } else {
-      content.textContent = line.text || "";
+      content.textContent = line.text;
     }
     scrollToBottom();
     if (onDone) onDone();
     return;
   }
 
-  typeTextInto(content, line.text || "", onDone);
+  typeTextInto(content, line.text || "", onDone, speed);
 }
 
 export function typeLines(lines, onDone) {
@@ -66,9 +76,10 @@ export function typeLines(lines, onDone) {
       if (onDone) onDone();
       return;
     }
+    const speed = lines[i].speed || 1;
     typeLine(lines[i], () => {
       i++;
-      setTimeout(next, lineDelay());
+      setTimeout(next, lineDelay(speed));
     });
   }
   next();

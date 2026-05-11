@@ -1,12 +1,16 @@
 import { getTerminalProfileEntries } from "./profile.js";
 
+const GROUP_ORDER = ["navigation", "profile", "tools", "ui"];
+
 export function createCommands(ctx) {
   const commands = {
     help: {
+      group: "tools",
       desc: "show available commands",
       run: () => generateHelp(commands, ctx.version),
     },
     mail: {
+      group: "navigation",
       desc: "open email client",
       run: () => {
         window.open("mailto:kalindu@kdecosta.com", "_blank");
@@ -14,6 +18,7 @@ export function createCommands(ctx) {
       },
     },
     github: {
+      group: "navigation",
       desc: "open github profile",
       run: () => {
         window.open("https://github.com/kalindudc", "_blank");
@@ -21,6 +26,7 @@ export function createCommands(ctx) {
       },
     },
     linkedin: {
+      group: "navigation",
       desc: "open linkedin profile",
       run: () => {
         window.open("https://www.linkedin.com/in/kdecosta/", "_blank");
@@ -28,6 +34,7 @@ export function createCommands(ctx) {
       },
     },
     resume: {
+      group: "navigation",
       desc: "open resume in new tab",
       run: () => {
         window.open("/media/kalindu_de_costa_resume.pdf", "_blank");
@@ -35,6 +42,7 @@ export function createCommands(ctx) {
       },
     },
     reboot: {
+      group: "tools",
       desc: "reload the page",
       run: () => {
         setTimeout(() => location.reload(), 200);
@@ -42,10 +50,12 @@ export function createCommands(ctx) {
       },
     },
     whoami: {
+      group: "profile",
       desc: "show profile information",
       run: () => getTerminalProfileEntries(),
     },
     clear: {
+      group: "profile",
       desc: "clear the terminal",
       run: () => {
         ctx.clearOutput();
@@ -53,14 +63,17 @@ export function createCommands(ctx) {
       },
     },
     echo: {
+      group: "tools",
       desc: "repeat what you say",
       run: (args) => [{ text: args.join(" ") || "" }],
     },
     date: {
+      group: "tools",
       desc: "show current date/time",
       run: () => [{ text: new Date().toString() }],
     },
     exit: {
+      group: "ui",
       desc: "switch to modern profile view",
       run: () => {
         ctx.showModernView();
@@ -68,6 +81,7 @@ export function createCommands(ctx) {
       },
     },
     mode: {
+      group: "tools",
       desc: "toggle light / dark theme",
       run: () => {
         const next = ctx.toggleTheme();
@@ -79,21 +93,61 @@ export function createCommands(ctx) {
 }
 
 function generateHelp(commands, version) {
-  const names = Object.keys(commands).sort();
-  let headings = ["COMMANDS", "DESCRIPTION"];
-  let maxLen = Math.max(...names.map((n) => n.length));
-  maxLen = Math.max(maxLen, headings[0].length) + 1;
-  return [
-    { text: `kdecosta-os v${version}`, accent: true },
-    { text: "============================", dim: true },
-    { text: "" },
-    { text: headings[0] + " ".repeat(maxLen - headings[0].length + 2) + headings[1], dim: true },
-    { text: "-".repeat(maxLen) + "  -----------", dim: true },
-    ...names.map((name) => {
-      const padding = " ".repeat(maxLen - name.length);
-      return { text: `${name}${padding}  ${commands[name].desc}` };
-    }),
-    { text: "" },
-    { text: "[tab completion supported]", dim: true },
+  const names = Object.keys(commands);
+  const maxNameLen = Math.max(...names.map((n) => n.length));
+  const dotCol = Math.max(18, maxNameLen + 10);
+
+  // Group commands
+  const groups = {};
+  for (const name of names) {
+    const g = commands[name].group || "other";
+    if (!groups[g]) groups[g] = [];
+    groups[g].push(name);
+  }
+
+  // Sort within each group
+  for (const g of Object.keys(groups)) {
+    groups[g].sort();
+  }
+
+  const lines = [
+    { text: `kdecosta-os v${version}`, accent: true, speed: 0.02 },
+    { text: "", skipType: true, speed: 0.06 },
   ];
+
+  let firstGroup = true;
+  for (const groupName of GROUP_ORDER) {
+    const cmds = groups[groupName];
+    if (!cmds || cmds.length === 0) continue;
+
+    if (!firstGroup) {
+      lines.push({ text: "", skipType: true, speed: 0.02 });
+    }
+    firstGroup = false;
+
+    for (const name of cmds) {
+      const desc = commands[name].desc;
+      const dotCount = Math.max(2, dotCol - name.length);
+      const dots = ".".repeat(dotCount);
+      lines.push({ text: `${name} ${dots} ${desc}`, speed: 0.01 });
+    }
+  }
+
+  // Append any commands in unrecognised groups
+  for (const groupName of Object.keys(groups).sort()) {
+    if (GROUP_ORDER.includes(groupName)) continue;
+    const cmds = groups[groupName];
+    if (!firstGroup) lines.push({ text: "", skipType: true, speed: 0.03 });
+    firstGroup = false;
+    for (const name of cmds) {
+      const desc = commands[name].desc;
+      const dotCount = Math.max(2, dotCol - name.length);
+      const dots = ".".repeat(dotCount);
+      lines.push({ text: `${name} ${dots} ${desc}`, speed: 0.02 });
+    }
+  }
+
+  lines.push({ text: "[tab completion supported]", dim: true, speed: 0.06 });
+
+  return lines;
 }

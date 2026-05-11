@@ -19,6 +19,50 @@ import {
 import { getTerminalProfileEntries } from "./profile.js";
 
 const VERSION = pkg.version;
+const VIEW_KEY = "kdecosta-view";
+
+// ── View state ──
+function getSavedView() {
+  return localStorage.getItem(VIEW_KEY) || "terminal";
+}
+
+function setSavedView(view) {
+  localStorage.setItem(VIEW_KEY, view);
+}
+
+let hasBooted = false;
+
+function showTerminalView() {
+  const terminalWrap = document.getElementById("terminal-wrap");
+  const modernView = document.getElementById("modern-view");
+  if (terminalWrap) terminalWrap.style.display = "block";
+  if (modernView) modernView.style.display = "none";
+  setSavedView("terminal");
+
+  if (!hasBooted) {
+    bootSequence();
+    hasBooted = true;
+  }
+}
+
+function applyView(view) {
+  if (view === "modern") {
+    showModernView();
+  } else {
+    showTerminalView();
+  }
+}
+
+function toggleView() {
+  const terminalWrap = document.getElementById("terminal-wrap");
+  const isTerminal = terminalWrap && terminalWrap.style.display !== "none";
+  if (isTerminal) {
+    showModernView();
+    setSavedView("modern");
+  } else {
+    showTerminalView();
+  }
+}
 
 // ── Input state ──
 let commandHistory = [];
@@ -129,6 +173,16 @@ function bootSequence() {
 
 // ── Keyboard ──
 document.addEventListener("keydown", (e) => {
+  // `/` from modern view → terminal
+  if (e.key === "/") {
+    const modernView = document.getElementById("modern-view");
+    if (modernView && modernView.style.display === "flex") {
+      e.preventDefault();
+      showTerminalView();
+      return;
+    }
+  }
+
   if (e.key === "Enter") {
     e.preventDefault();
     if (getIsTyping()) return;
@@ -217,5 +271,12 @@ document.addEventListener("DOMContentLoaded", () => {
     themeBtn.addEventListener("click", () => toggleTheme());
   }
 
-  bootSequence();
+  const viewBtn = document.getElementById("view-toggle");
+  if (viewBtn) {
+    viewBtn.addEventListener("click", () => toggleView());
+  }
+
+  // Apply saved view (default terminal)
+  // showTerminalView() will lazy-boot if terminal is chosen
+  applyView(getSavedView());
 });
