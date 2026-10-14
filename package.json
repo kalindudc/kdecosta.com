@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "resume": "cd resume && tectonic kalindu_de_costa_resume.tex && cp kalindu_de_costa_resume.pdf ../public/media/",
     "preview": "vite preview"
   },
   "devDependencies": {
