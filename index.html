@@ -1,48 +1,85 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Kalindu De Costa — Staff Infrastructure Engineer @ Shopify" />
-    <title>kdecosta.com</title>
-    <link rel="icon" href="/media/icon.jpg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    <script type="module" src="/src/main.js"></script>
-  </head>
-  <body>
-    <div class="vignette"></div>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Kalindu De Costa — Staff Infrastructure Engineer at Shopify" />
+<meta name="theme-color" content="#f5f1e6" />
+<title>Kalindu De Costa</title>
+<link rel="icon" href="/media/icon.jpg" />
+<script>
+  try { document.documentElement.dataset.theme = localStorage.getItem("theme-v2") || "light"; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+<main>
+  <div class="top"><button class="theme" id="theme" type="button" aria-label="Switch colour theme">dark</button></div>
 
-    <!-- View toggle -->
-    <button class="view-toggle" id="view-toggle" aria-label="Toggle view">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h10a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h14a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1z"/>
-      </svg>
-    </button>
-
-    <!-- Terminal view -->
-    <div class="terminal-wrap" id="terminal-wrap">
-      <div class="terminal">
-        <div class="terminal-body" id="terminal-body">
-          <div class="output-area" id="output"></div>
-
-          <div class="input-line" id="input-line">
-            <span class="prompt"><span class="prompt-date"></span>$</span>
-            <span class="input-text" id="input-text"></span>
-          </div>
-        </div>
-      </div>
+  <header>
+    <img class="avatar" src="/media/avatar.jpg" alt="Kalindu De Costa" />
+    <div>
+      <h1>Kalindu De Costa</h1>
+      <p class="role">staff infrastructure engineer @ <a class="shopify" target="_blank" rel="noopener noreferrer" href="https://www.shopify.com">shopify</a> · toronto</p>
     </div>
+  </header>
 
-    <!-- Modern profile view -->
-    <div class="modern-view" id="modern-view">
-      <div class="view-hint">/ to go back to terminal</div>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-13a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V5a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM5.64 6.05a1 1 0 0 1 1.41 0 1 1 0 0 1 0 1.41l-1.41 1.42a1 1 0 0 1-1.42-1.42l1.42-1.41zm12.72 0 1.42 1.41a1 1 0 0 1-1.42 1.42l-1.41-1.42a1 1 0 0 1 1.41-1.41zM4 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm15 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1z"/>
-        </svg>
-      </button>
-    </div>
-  </body>
+  <p class="lede">I keep the edge fast and safe for millions of merchants and build the tools that keep your agents on track.</p>
+  <ul class="links">
+    <li><a target="_blank" rel="noopener noreferrer" href="mailto:mail@kdecosta.com">mail@kdecosta.com</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/kalindudc">github</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/kdecosta/">linkedin</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="/media/kalindu_de_costa_resume.pdf">resume (pdf)</a></li>
+  </ul>
+
+  <h2>Selected work</h2>
+
+  <article class="work">
+    <h3>edge infrastructure @ <a class="shopify" target="_blank" rel="noopener noreferrer" href="https://www.shopify.com">shopify</a></h3>
+    <p class="meta">2021 – present · kubernetes, gcp, cloudflare, rust, terraform</p>
+    <dl>
+      <dt>Problem</dt><dd>Every request to a <span class="shopify">shopify</span> storefront crosses the edge first. It has to be fast, resilient and safe to change.</dd>
+      <dt>Work</dt><dd>Routing on Kubernetes, a GCP edge built on multi-tier load balancers and Rust proxy-wasm extensions, Cloudflare as a unified edge, and isolated canary rollouts for tier 1 services.</dd>
+      <dt>Outcome</dt><dd>Lower latency, cheaper compute and much faster incident mitigation. The numbers are on my <a target="_blank" rel="noopener noreferrer" href="/media/kalindu_de_costa_resume.pdf">resume</a>.</dd>
+    </dl>
+  </article>
+
+  <article class="work">
+    <h3>cortex <span class="tag">private, going open source</span></h3>
+    <p class="meta">2026 · typescript, sqlite, unix sockets</p>
+    <p>A single-binary task tracker and memory layer for one engineer supervising several AI coding agents at once.</p>
+    <dl>
+      <dt>Problem</dt><dd>Parallel agent sessions lose context, attribute work badly and interrupt you constantly.</dd>
+      <dt>Decisions</dt><dd>One daemon per database on a private Unix socket, so every write is arbitrated and nothing is exposed to the network. Agents post updates through an agent-first CLI with <code>--json</code>. Live events fan out to every open terminal workspace. The TUI only interrupts when a task is blocked. Tasks double as searchable agent memory.</dd>
+      <dt>Outcome</dt><dd>Daily driver for my own agent work: about 68k lines of TypeScript with a roughly 1:1 test-to-source ratio (1,600+ tests).</dd>
+    </dl>
+  </article>
+
+  <article class="work">
+    <h3>pi-minions and pi-quests</h3>
+    <p class="meta">2026 · typescript · published on npm · <a target="_blank" rel="noopener noreferrer" href="https://github.com/kalindudc/pi-minions">pi-minions</a> · <a target="_blank" rel="noopener noreferrer" href="https://github.com/kalindudc/pi-quests">pi-quests</a></p>
+    <p>Two open-source extensions for the pi coding agent. <strong>pi-minions</strong> delegates work to isolated sub-agents you can watch and halt. <strong>pi-quests</strong> keeps long sessions on the original goal with a quest log and rollback checkpoints. Both have outside users and issues from people I have never met.</p>
+  </article>
+
+  <article class="work">
+    <h3>shell and homelab</h3>
+    <p class="meta">2021 – present · ruby, shell, typescript, kubernetes · <a target="_blank" rel="noopener noreferrer" href="https://github.com/kalindudc/shell">shell</a> · <a target="_blank" rel="noopener noreferrer" href="/homelab/">homelab</a></p>
+    <p>A cross-platform dotfiles installer with a curl bootstrap and benchmarked shell startup, maintained for five years. A documented 15U home rack with VLAN-segmented networking, DNS sinkhole and Home Assistant.</p>
+  </article>
+
+  <h2>Experience</h2>
+  <div class="job"><h3>staff infrastructure engineer @ <span class="shopify">shopify</span></h3><span class="when">2025 – present</span><p>edge infrastructure</p></div>
+  <div class="job"><h3>senior infrastructure engineer @ <span class="shopify">shopify</span></h3><span class="when">2021 – 2025</span><p>edge infrastructure</p></div>
+  <div class="job"><h3>data replication software developer @ IBM Canada</h3><span class="when">2019 – 2021</span><p>change data capture for kafka, and automation for the IBM cloud offering.</p></div>
+
+  <h2>Education</h2>
+  <div class="job"><h3>University of Toronto</h3><span class="when"></span><p>honours b.sc., computer science, software engineering (co-op)</p></div>
+
+  <footer>© 2026 Kalindu De Costa</footer>
+</main>
+<script type="module" src="/src/main.js"></script>
+</body>
 </html>
