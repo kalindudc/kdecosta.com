@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>og</title>
+<style>
+  @font-face { font-family: "Source Serif 4"; src: url("/fonts/source-serif-4-normal.woff2") format("woff2"); font-weight: 400; font-display: block; }
+  @font-face { font-family: "Source Serif 4"; src: url("/fonts/source-serif-4-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
+  @font-face { font-family: "IBM Plex Mono"; src: url("/fonts/ibm-plex-mono-500.woff2") format("woff2"); font-weight: 500; font-display: block; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    background: #f6f3ec;
+    color: #1b1917;
+    font-family: "IBM Plex Mono", monospace;
+    position: relative;
+    overflow: hidden;
+  }
+  .grain {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(27,25,23,.055) 1px, transparent 0);
+    background-size: 4px 4px;
+    pointer-events: none;
+  }
+  .top {
+    position: absolute; top: 44px; left: 72px; right: 72px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 15px; letter-spacing: .16em; text-transform: uppercase; color: #7a7269;
+  }
+  .top b { color: #1b1917; font-weight: 500; }
+  .top b i { color: #95bf47; font-style: normal; }
+  .hero {
+    position: absolute; top: 130px; left: 72px; right: 72px;
+    display: flex; align-items: flex-start; gap: 34px;
+  }
+  .portrait {
+    width: 235px; height: 230px; border-radius: 6px;
+    object-fit: cover; border: 1px solid #dcd6cb;
+    box-shadow: 0 1px 0 rgba(27,25,23,.06);
+    flex: none;
+  }
+  h1 {
+    font-family: "Source Serif 4", serif; font-weight: 400;
+    font-size: 104px; line-height: .98; letter-spacing: -.02em;
+    padding-top: 4px;
+  }
+  h1 em { font-style: italic; color: #487a2c; }
+  .role {
+    margin-top: 22px; font-size: 19px; letter-spacing: .02em; color: #66605a;
+  }
+  .role b { color: #487a2c; font-weight: 500; }
+  .bottom {
+    position: absolute; left: 72px; right: 72px; bottom: 56px;
+    display: flex; align-items: baseline; gap: 24px;
+    border-top: 1px solid #dcd6cb; padding-top: 20px;
+    font-size: 16px; color: #7a7269;
+  }
+  .bottom .say { flex: 1; }
+  .bottom b { color: #1b1917; font-weight: 500; }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: #95bf47; }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="top">
+    <span><b>kdecosta<i>.</i>com</b></span>
+    <span>infrastructure engineer · toronto</span>
+  </div>
+
+  <div class="hero">
+    <img class="portrait" src="/media/avatar.jpg" alt="" />
+    <div>
+      <h1>Kalindu<br /><em>De Costa</em></h1>
+      <p class="role">Staff Infrastructure Engineer @ <b>Shopify</b> · Edge Infrastructure</p>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <span class="say"><b>I keep production boring.</b> My side projects renovate without a permit.</span>
+    <span>mail@kdecosta.com</span>
+  </div>
+  <div class="bar"></div>
+</body>
+</html>
